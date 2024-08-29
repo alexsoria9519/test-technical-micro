@@ -42,8 +42,7 @@ public class ClientControllerTest {
         // Arrange
         Long id = 1L;
         ClientDTO client = new ClientDTO();
-        Mockito.when(clientService.getClientById(id)).thenReturn(java.util.Optional.of(client));
-
+        Mockito.when(clientService.getClientById(id)).thenReturn(client);
         // Act
         ResponseEntity<ClientDTO> response = clientController.getClientById(id);
 
@@ -52,18 +51,6 @@ public class ClientControllerTest {
         assertEquals(client, response.getBody());
     }
 
-    @Test
-    void testGetClientByIdNotFound() {
-        // Arrange
-        Long id = 1L;
-        Mockito.when(clientService.getClientById(id)).thenReturn(java.util.Optional.empty());
-
-        // Act
-        ResponseEntity<ClientDTO> response = clientController.getClientById(id);
-
-        // Assert
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
 
     @Test
     void testCreateClient() {

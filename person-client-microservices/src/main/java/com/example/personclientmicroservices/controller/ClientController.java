@@ -28,9 +28,8 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
-        Optional<ClientDTO> client = clientService.getClientById(id);
-        return client.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        ClientDTO client = clientService.getClientById(id);
+        return ResponseEntity.ok(client);
     }
 
     @PostMapping

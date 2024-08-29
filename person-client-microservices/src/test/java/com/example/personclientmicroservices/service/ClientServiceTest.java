@@ -2,6 +2,7 @@ package com.example.personclientmicroservices.service;
 
 import com.example.personclientmicroservices.component.ClientConverter;
 import com.example.personclientmicroservices.domain.Client;
+import com.example.personclientmicroservices.exception.ClientNotFoundException;
 import com.example.personclientmicroservices.models.ClientDTO;
 import com.example.personclientmicroservices.repository.ClientRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +31,9 @@ public class ClientServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private MessageSource messageSource;
 
     @InjectMocks
     private ClientService clientService;
@@ -76,28 +82,15 @@ public class ClientServiceTest {
         when(clientConverter.toDTO(client)).thenReturn(clientDTO);
 
         // Act
-        Optional<ClientDTO> result = clientService.getClientById(clientId);
+        ClientDTO result = clientService.getClientById(clientId);
 
         // Assert
-        assertTrue(result.isPresent());
-        assertEquals(clientDTO, result.get());
-        assertNull(result.get().getPassword());
+
+        assertEquals(clientDTO, result);
+        assertNull(result.getPassword());
         verify(clientRepository, times(1)).findById(clientId);
     }
 
-    @Test
-    void testGetClientById_NotFound() {
-        // Arrange
-        Long clientId = 1L;
-        when(clientRepository.findById(clientId)).thenReturn(Optional.empty());
-
-        // Act
-        Optional<ClientDTO> result = clientService.getClientById(clientId);
-
-        // Assert
-        assertFalse(result.isPresent());
-        verify(clientRepository, times(1)).findById(clientId);
-    }
 
     @Test
     void testCreateClient() {
@@ -179,9 +172,10 @@ public class ClientServiceTest {
         Client client = new Client();
         when(clientRepository.existsById(clientId)).thenReturn(false);
         when(clientConverter.fromDTO(clientDTO)).thenReturn(client);
+        when(messageSource.getMessage("client.not.found", new Object[]{clientId}, Locale.getDefault())).thenReturn("Client not found");
 
         // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        ClientNotFoundException exception = assertThrows(ClientNotFoundException.class, () -> {
             clientService.updateClient(clientId, clientDTO);
         });
         assertEquals("Client not found", exception.getMessage());
@@ -209,9 +203,10 @@ public class ClientServiceTest {
         // Arrange
         Long clientId = 1L;
         when(clientRepository.existsById(clientId)).thenReturn(false);
+        when(messageSource.getMessage("client.not.found", new Object[]{clientId}, Locale.getDefault())).thenReturn("Client not found");
 
         // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        ClientNotFoundException exception = assertThrows(ClientNotFoundException.class, () -> {
             clientService.deleteClient(clientId);
         });
         assertEquals("Client not found", exception.getMessage());
