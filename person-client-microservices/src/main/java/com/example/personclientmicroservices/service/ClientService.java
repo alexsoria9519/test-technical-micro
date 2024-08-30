@@ -37,6 +37,12 @@ public class ClientService {
                 messageSource.getMessage("client.not.found", new Object[]{id}, Locale.getDefault())));
     }
 
+    public ClientDTO getClientByName(String clientName) {
+        Optional<Client> client = clientRepository.findByName(clientName);
+        return client.map(clientConverter::toDTO).orElseThrow(() -> new ClientNotFoundException(
+                messageSource.getMessage("client.not.found.by.name", new Object[]{clientName}, Locale.getDefault())));
+    }
+
     public ClientDTO createClient(ClientDTO clientDTO) {
         Client client = clientConverter.fromDTO(clientDTO);
         return clientConverter.toDTO(clientRepository.save(client));

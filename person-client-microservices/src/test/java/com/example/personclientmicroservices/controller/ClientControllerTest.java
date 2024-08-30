@@ -1,15 +1,15 @@
 package com.example.personclientmicroservices.controller;
 
-import com.example.personclientmicroservices.domain.Client;
 import com.example.personclientmicroservices.models.ClientDTO;
 import com.example.personclientmicroservices.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +19,9 @@ public class ClientControllerTest {
 
     @Mock
     private ClientService clientService;
+
+    @Mock
+    private MessageSource messageSource;
 
     @InjectMocks
     private ClientController clientController;
@@ -45,6 +48,21 @@ public class ClientControllerTest {
         Mockito.when(clientService.getClientById(id)).thenReturn(client);
         // Act
         ResponseEntity<ClientDTO> response = clientController.getClientById(id);
+
+        // Assert
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(client, response.getBody());
+    }
+
+    @Test
+    void testGetClientByName() {
+        // Arrange
+        String name = "John";
+        ClientDTO client = new ClientDTO();
+        Mockito.when(clientService.getClientByName(name)).thenReturn(client);
+
+        // Act
+        ResponseEntity<ClientDTO> response = clientController.getClientByName(name);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());

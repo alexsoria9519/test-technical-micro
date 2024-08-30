@@ -91,6 +91,46 @@ public class ClientServiceTest {
         verify(clientRepository, times(1)).findById(clientId);
     }
 
+    @Test
+    void TestClientByName() {
+        // Arrange
+        Long clientId = 1L;
+        Client client = new Client();
+        client.setGender("Male");
+        client.setName("John");
+        client.setPassword("password");
+
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setGender(client.getGender());
+        clientDTO.setName(client.getName());
+
+        when(clientRepository.findByName(client.getName())).thenReturn(Optional.of(client));
+        when(clientConverter.toDTO(client)).thenReturn(clientDTO);
+
+        // Act
+        ClientDTO result = clientService.getClientByName(client.getName());
+
+        // Assert
+        assertEquals(clientDTO, result);
+        assertNull(result.getPassword());
+        verify(clientRepository, times(1)).findByName(client.getName());
+    }
+
+    @Test
+    void TestClientByName_NotFound() {
+        // Arrange
+        String clientName = "John";
+        when(clientRepository.findByName(clientName)).thenReturn(Optional.empty());
+        when(messageSource.getMessage("client.not.found.by.name", new Object[]{clientName}, Locale.getDefault())).thenReturn("Client not found by name");
+
+        // Act & Assert
+        ClientNotFoundException exception = assertThrows(ClientNotFoundException.class, () -> {
+            clientService.getClientByName(clientName);
+        });
+        assertEquals("Client not found by name", exception.getMessage());
+        verify(clientRepository, times(1)).findByName(clientName);
+    }
+
 
     @Test
     void testCreateClient() {

@@ -1,24 +1,27 @@
 package com.example.personclientmicroservices.controller;
 
-import com.example.personclientmicroservices.domain.Client;
 import com.example.personclientmicroservices.models.ClientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.personclientmicroservices.service.ClientService;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/clientes")
 public class ClientController {
     private final ClientService clientService;
+    private final MessageSource messageSource;
 
     @Autowired
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, MessageSource messageSource) {
         this.clientService = clientService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping
@@ -29,6 +32,14 @@ public class ClientController {
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
         ClientDTO client = clientService.getClientById(id);
+        return ResponseEntity.ok(client);
+    }
+
+    @GetMapping("/find/name")
+    public ResponseEntity<ClientDTO> getClientByName(@RequestParam String name) {
+        String clientName = Optional.ofNullable(name).orElseThrow(() -> new IllegalArgumentException(
+                messageSource.getMessage("client.name.provided", null, Locale.getDefault())));
+        ClientDTO client = clientService.getClientByName(clientName);
         return ResponseEntity.ok(client);
     }
 
