@@ -20,6 +20,7 @@ public class MovementConverter {
         dto.setMovementType(movement.getMovementType());
         dto.setAmount(movement.getAmount());
         dto.setBalance(movement.getBalance());
+        dto.setCreatedAt(movement.getCreatedAt());
 
         if(movement.getAccount() != null) {
             dto.setAccountId(movement.getAccount().getId());
@@ -38,6 +39,7 @@ public class MovementConverter {
         movement.setMovementType(movementDTO.getMovementType());
         movement.setAmount(movementDTO.getAmount());
         movement.setBalance(movementDTO.getBalance());
+        movement.setCreatedAt(movementDTO.getCreatedAt());
 
         if(movementDTO.getAccount() != null) {
             movement.setAccount(new AccountConverter().fromDTO(movementDTO.getAccount()));

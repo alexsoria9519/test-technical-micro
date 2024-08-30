@@ -3,6 +3,7 @@ import com.example.accountmicroservice.component.AccountConverter;
 import com.example.accountmicroservice.domain.Account;
 import com.example.accountmicroservice.exception.AccountNotFoundException;
 import com.example.accountmicroservice.models.AccountDTO;
+import com.example.accountmicroservice.models.ClientResponse;
 import com.example.accountmicroservice.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,11 +27,18 @@ public class AccountServiceTest {
     @Mock
     private AccountConverter accountConverter;
 
-    @InjectMocks
-    private AccountService accountService;
+    @Mock
+    private ClientHttpService clientHttpService;
 
     @Mock
     private MessageSource messageSource;
+
+    @InjectMocks
+    private AccountService accountService;
+
+
+
+
 
     @BeforeEach
     void setUp() {
@@ -109,6 +117,7 @@ public class AccountServiceTest {
         Boolean status = true;
         Long clientId = 1L;
         Double initialBalance = 100.0;
+        String clientName = "John";
 
         Account account = new Account();
         account.setId(id);
@@ -125,10 +134,18 @@ public class AccountServiceTest {
         accountDTO.setAccountType(accountType);
         accountDTO.setStatus(status);
         accountDTO.setClientId(clientId);
+        accountDTO.setClientName(clientName);
 
+        ClientResponse clientResponse = new ClientResponse();
+        clientResponse.setId(clientId);
+        clientResponse.setName(clientName);
+
+
+        Mockito.when(clientHttpService.getClientByName(clientName)).thenReturn(clientResponse);
         Mockito.when(accountConverter.fromDTO(accountDTO)).thenReturn(account);
         Mockito.when(accountConverter.toDTO(account)).thenReturn(accountDTO);
         Mockito.when(accountRepository.save(account)).thenReturn(account);
+
 
         // Act
 
@@ -138,8 +155,38 @@ public class AccountServiceTest {
 
         assertNotNull(result);
         assertEquals(accountDTO, result);
+        verify(clientHttpService, times(1)).getClientByName(clientName);
         verify(accountRepository, times(1)).save(account);
     }
+
+    @Test
+    void testCreateAccountWithoutClientName(){
+        Long id = 1L;
+        String accountNumber = "123456";
+        String accountType = "SAVINGS";
+        Boolean status = true;
+        Long clientId = 1L;
+        Double initialBalance = 100.0;
+
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setId(id);
+        accountDTO.setInitialBalance(initialBalance);
+        accountDTO.setAccountNumber(accountNumber);
+        accountDTO.setAccountType(accountType);
+        accountDTO.setStatus(status);
+        accountDTO.setClientId(clientId);
+        accountDTO.setClientName(null);
+
+        Mockito.when(messageSource.getMessage("client.name.provided", null, Locale.getDefault())).thenReturn("Client name not provided");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            accountService.createAccount(accountDTO);
+        });
+
+        assertEquals("Client name not provided", exception.getMessage());
+
+    }
+
 
     @Test
     void TestUpdateAccount(){

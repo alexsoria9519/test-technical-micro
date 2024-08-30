@@ -11,6 +11,7 @@ public class AccountDTO {
     private Double initialBalance;
     private Long clientId;
     private Boolean status;
+    private String clientName;
     private List<MovementDTO> mouvements;
 
 
