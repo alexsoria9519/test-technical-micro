@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "9d2fced5-bd3c-4a3d-8e01-a9ddee13263a",
+		"name": "TechnicalTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6976054"
+	},
+	"item": [
+		{
+			"name": "Listado Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Client Jose Lema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jose Lema\",\r\n    \"gender\": \"Masculino\",\r\n    \"age\": 18,\r\n    \"password\": \"1234\",\r\n    \"status\": true,\r\n    \"address\": \"Otavalo sn y principal\",\r\n    \"phone\": \"098254785\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Client Marianela Montalvo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Marianela Montalvo\",\r\n    \"gender\": \"Femenino\",\r\n    \"age\": 19,\r\n    \"password\": \"5678\",\r\n    \"status\": true,\r\n    \"address\": \"Amazonas y NNUU\",\r\n    \"phone\": \"097548965\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Client Juan Osorio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Juan Osorio\",\r\n    \"gender\": \"Masculino\",\r\n    \"age\": 18,\r\n    \"password\": \"1245\",\r\n    \"status\": true,\r\n    \"address\": \"13 junio y Equinoccial\",\r\n    \"phone\": \"098874587\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Client by Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/clientes/find/name?name=Jose Lema",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"clientes",
+						"find",
+						"name"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Jose Lema"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account Jose Lema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"Ahorro\",\r\n    \"accountNumber\": \"478758\",\r\n    \"initialBalance\": 2000.0,\r\n    \"clientName\": \"Jose Lema\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account Marianela Montalvo 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"Corriente\",\r\n    \"accountNumber\": \"225487\",\r\n    \"initialBalance\": 100.0,\r\n    \"clientName\": \"Marianela Montalvo\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account Marianela Montalvo 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"Ahorros\",\r\n    \"accountNumber\": \"496825\",\r\n    \"initialBalance\": 540.0,\r\n    \"clientName\": \"Marianela Montalvo\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account Juan Osorio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"Ahorros\",\r\n    \"accountNumber\": \"495878\",\r\n    \"initialBalance\": 0,\r\n    \"clientName\": \"Juan Osorio\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Create Account Jose Lema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountType\": \"Corriente\",\r\n    \"accountNumber\": \"585545\",\r\n    \"initialBalance\": 1000,\r\n    \"clientName\": \"Jose Lema\",\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movementType\": \"WITHDRAWAL\",\r\n    \"accountNumber\": \"478758\",\r\n    \"amount\": \"575\",\r\n    \"status\": true,\r\n    \"createdAt\": \"2022-02-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movementType\": \"DEPOSIT\",\r\n    \"accountNumber\": \"225487\",\r\n    \"amount\": \"600\",\r\n    \"status\": true,\r\n    \"createdAt\": \"2022-02-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movementType\": \"DEPOSIT\",\r\n    \"accountNumber\": \"495878\",\r\n    \"amount\": \"150\",\r\n    \"status\": true,\r\n    \"createdAt\": \"2022-02-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movement 4",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"movementType\": \"WITHDRAWAL\",\r\n    \"accountNumber\": \"496825\",\r\n    \"amount\": \"540\",\r\n    \"status\": true,\r\n    \"createdAt\": \"2022-02-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report by Dates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/reportes?name=Marianela Montalvo&startDate=01/02/2022&endDate=30/02/2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"reportes"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Marianela Montalvo"
+						},
+						{
+							"key": "startDate",
+							"value": "01/02/2022"
+						},
+						{
+							"key": "endDate",
+							"value": "30/02/2022"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
