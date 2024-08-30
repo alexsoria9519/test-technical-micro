@@ -12,7 +12,7 @@ public class AccountDTO {
     private Long clientId;
     private Boolean status;
     private String clientName;
-    private List<MovementDTO> mouvements;
+    private List<MovementDTO> movements;
 
 
 }

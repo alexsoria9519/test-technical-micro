@@ -43,6 +43,11 @@ public class AccountService {
                 messageSource.getMessage("account.not.found", new Object[]{id}, Locale.getDefault())));
     }
 
+    public List<AccountDTO> findByClientId(Long clientId){
+        List<Account> accounts = accountRepository.findByClientId(clientId);
+        return accountConverter.fromListEntityToDTOList(accounts);
+    }
+
     public AccountDTO getByAccountNumber(String accounNumber){
         Optional<Account> account = accountRepository.findByAccountNumber(accounNumber);
         return account.map(accountConverter::toDTO).orElseThrow(() -> new AccountNotFoundException(

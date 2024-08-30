@@ -15,4 +15,5 @@ public class MovementDTO {
     private String movementDetail;
     private AccountDTO account;
     private LocalDate createdAt;
+    private Boolean status;
 }

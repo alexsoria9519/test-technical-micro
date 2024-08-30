@@ -24,7 +24,7 @@ public class AccountConverter {
         dto.setStatus(account.getStatus());
 
         if(account.getMovements() != null) {
-            dto.setMouvements(new MovementConverter().fromListEntityToDTOList(account.getMovements()));
+            dto.setMovements(new MovementConverter().fromListEntityToDTOList(account.getMovements()));
         }
         return dto;
     }
@@ -42,8 +42,8 @@ public class AccountConverter {
         account.setClientId(accountDTO.getClientId());
         account.setStatus(accountDTO.getStatus());
 
-        if(accountDTO.getMouvements() != null) {
-            account.setMovements(new MovementConverter().fromListDTOToEntityList(accountDTO.getMouvements()));
+        if(accountDTO.getMovements() != null) {
+            account.setMovements(new MovementConverter().fromListDTOToEntityList(accountDTO.getMovements()));
         }
 
         return account;
